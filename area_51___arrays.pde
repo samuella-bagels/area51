@@ -65,3 +65,61 @@ void keyPressed(){
     p.movement(15,0,i);
   }
 }
+
+class mobs{
+  void alien(){
+  }
+  void agent(){
+  }
+}
+
+class player{
+  int x1, y1;
+  int speed;
+
+  void naruto(boolean naruto){
+    if (naruto == true){
+      speed =10;
+    naruto = false;}
+      
+      else{speed =5;}
+      print(" speed");
+      print (speed);
+      
+  }
+  void movement(int x,int y, int p){
+    x1=x1+x*speed;
+    y1=y1+y*speed;
+    s.zones(x1,y1);
+    show();
+    print(p);
+    
+    
+  }
+  void show(){
+    fill(0,0,0);
+    rect(x1,y1,30,30);
+    
+
+  }
+}
+
+class screen{
+  void zones(int x, int y){
+    // safeZone
+    
+    
+    
+  }
+  void display(){
+    
+    
+    
+  }
+  
+  void show(){
+    fill(26,29,38); rect(0,0,width,300);
+    fill(232,167,167); rect(500,400,1250,1004);//trackZone
+    fill(232,100,100); rect(700,600,850,604); //killZone
+  }
+}
