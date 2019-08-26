@@ -1,0 +1,197 @@
+player p;
+screen s;
+mobs m;
+player person[] = new player[10];
+mobs alien[] = new mobs[51];
+mobs agent[] = new mobs[1];
+int i;
+
+
+void setup(){
+  smooth();
+  fullScreen();
+  loadMethod();
+  noStroke();
+  for(int t=0; t<10; t++){person[t] = new player();
+    person[t].x1 = 50;
+    person[t].y1= 430+t*100;
+}
+  loadClass();
+  i=0;
+  m.alienTouch = false;
+  p.naruto(false);
+}
+
+void loadClass(){
+  m.makeAliens();
+  m.makeAgents();
+}
+
+void draw(){
+  background(255,255,255);
+  s.show();
+  p.show();
+  m.show();
+  m.agents();
+  
+  
+}
+
+void loadMethod(){
+  p = new player();
+  s = new screen();
+  m = new mobs();
+}
+
+void loadImage(){
+}
+
+
+void keyPressed(){
+  int t =10;
+  if(key =='1'){
+    i=0;}
+  if(key =='2'){
+    i=1;}
+  if(key =='3'){
+    i=2;}
+  if(key =='4'){
+    i=3;}
+  if(key =='5'){
+    i=4;}
+  if(key =='6'){
+    i=5;}
+  if(key =='7'){
+    i=6;}
+  if(key =='8'){
+    i=7;}
+  if(key =='9'){
+    i=8;}
+  if(key =='0'){
+    i=9;}
+  
+  if (key == 'n' || key == 'N'){p.naruto(true); }
+  
+  
+  if (key == 'w' || key == 'W'){ p.movement(0,-1); }
+  if (key == 'a' || key == 'A'){ p.movement(-1,0); }
+  if (key == 's' || key == 'S'){ p.movement(0,1); }
+  if (key == 'd' || key == 'D'){ p.movement(1,0); }
+}
+
+class mobs{
+  float x,y;
+  int xLength, yLength, xSpeed, ySpeed,speed ;
+  boolean alienTouch;
+  
+  
+  void makeAliens(){ 
+   for(int q=0; q<51; q++){
+     alien[q] = new mobs();
+     alien[q].x=random(500,1750);
+     alien[q].y=random(400,1404); 
+     alien[q].xLength = 30;
+     alien[q].yLength = 30;
+   }
+   // declares starting positions and size of aliens
+  }
+
+  void checkAlien(int x1, int y1){
+    for (int q=0; q<51; q++){
+      if(dist(person[i].x1, person[i].y1, alien[q].x, alien[q].y)<30){
+        alienTouch = true;
+        alien[q].xLength=0;
+        alien[q].yLength=0;
+      }
+    else { alienTouch = false;} 
+  }
+  // checks if an alien is being touched by a person
+  // if an alien is touched by a person it will shrink the size of the alien so that it appears to have disapeared
+  }
+  
+  void makeAgents(){
+    for (int l=0; l<agent.length; l++){
+    agent[l] = new mobs();
+    agent[l].x = random(700, 1550);
+    agent[l].y = random(600, 1204);
+    agent[l].xSpeed = 5;
+    agent[l].ySpeed = 5;
+    agent[l].xLength = 50;
+    agent[l].yLength = 50;}
+  }
+   
+   void agents(){
+     for (int m=0; m<agent.length; m++){
+     for (int p=0; p<person.length; p++){
+       if(dist(person[p].x1,person[p].y1,agent[m].x,agent[m].y)<300){
+         if (person[p].x1>agent[m].x){agent[m].xSpeed*=-1;}
+         if (person[p].x1<agent[m].x){agent[m].xSpeed*=1;}
+         if (person[p].y1>agent[m].y){agent[m].ySpeed*=-1;}
+         if (person[p].y1<agent[m].y){agent[m].ySpeed*=1;}
+         agent[m].x+=xSpeed;
+      agent[m].y+=ySpeed;
+       }
+     }
+     
+         
+     }
+   }
+    
+  void show(){
+    
+    for(int g=0; g<51;g++){
+      fill(67,80,97); rect(alien[g].x, alien[g].y, alien[g].xLength, alien[g].yLength);}
+    for (int m=0; m<agent.length; m++){
+      fill(0,0,0); rect(agent[m].x, agent[m].y, agent[m].xLength, agent[m].yLength);}
+  }
+}
+
+
+class player{
+  int x1, y1, speed, kx, ky, nxLength, nyLength;
+
+  void naruto(boolean n){
+    if (n==true){ speed =10;
+    n = false; }
+    else{ n= false; speed =5;}
+    
+  }
+  
+  void movement(int x,int y){
+    kx = speed; ky = speed;
+    kx*=x;
+    ky*=y;
+    
+    
+  }
+  void show(){
+    fill(0,0,0);
+    person[i].x1=person[i].x1+kx;
+    person[i].y1=person[i].y1+ky;
+
+    for(int p=0; p<10; p++){rect(person[p].x1,person[p].y1,30,30);} 
+    m.checkAlien(x1,y1);
+  }
+}
+
+class screen{
+  String score;
+  
+  void zones(){
+    // safeZone
+  
+  }
+  void score(int a){
+    score = str(a);
+    print(a, score);
+  }
+  
+  
+  void show(){
+    fill(26,29,38); rect(0,0,width,300);
+    fill(232,167,167); rect(500,400,1250,1004);//trackZone
+    fill(232,100,100); rect(700,600,850,604); //killZone
+   /* for (int t=0; t<i; t++){
+      rect(20+i*100,20,80,260);}*/
+  }
+}
