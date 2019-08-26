@@ -1,0 +1,198 @@
+player p;
+screen s;
+mobs m;
+player person[] = new player[10];
+mobs alien[] = new mobs[51];
+mobs agent[] = new mobs[1];
+int i;
+
+
+void setup(){
+  fullScreen();
+  loadMethod();
+  noStroke();
+  for(int t=0; t<10; t++){person[t] = new player();
+    person[t].x1 = 50;
+    person[t].y1= 430+t*100;
+}
+  loadClass();
+  i=0;
+  m.alienTouch = false;
+}
+
+void loadClass(){
+  m.makeAliens();
+  m.makeAgents();
+}
+
+void draw(){
+  background(255,255,255);
+  s.show();
+  m.show();
+  p.show();
+  m.agents();
+}
+
+void loadMethod(){
+  p = new player();
+  s = new screen();
+  m = new mobs();
+}
+
+void loadImage(){
+}
+
+
+void keyPressed(){
+  if(key =='1'){
+    i=0;}
+  if(key =='2'){
+    i=1;}
+  if(key =='3'){
+    i=2;}
+  if(key =='4'){
+    i=3;}
+  if(key =='5'){
+    i=4;}
+  if(key =='6'){
+    i=5;}
+  if(key =='7'){
+    i=6;}
+  if(key =='8'){
+    i=7;}
+  if(key =='9'){
+    i=8;}
+  if(key =='0'){
+    i=9;}
+  
+  //if (key == 'n' || key == 'N'){ }
+    
+  
+  if (key == 'w' || key == 'W'){ p.movement(0,-1); }
+  if (key == 'a' || key == 'A'){ p.movement(-1,0); }
+  if (key == 's' || key == 'S'){ p.movement(0,1); }
+  if (key == 'd' || key == 'D'){ p.movement(1,0); }
+}
+
+class mobs{
+  float x,y;
+  int xLength, yLength, xSpeed, ySpeed, p;
+  boolean alienTouch;
+  
+  void makeAliens(){ 
+   for(int q=0; q<51; q++){
+     alien[q] = new mobs();
+     alien[q].x=random(500,1750);
+     alien[q].y=random(400,1404); 
+     alien[q].xLength = 30;
+     alien[q].yLength = 30;
+   }
+   // declares starting positions and size of aliens
+  }
+
+  void checkAlien(int x1, int y1){
+    for (int q=0; q<51; q++){
+      if(dist(person[i].x1, person[i].y1, alien[q].x, alien[q].y)<30){
+        alienTouch = true;
+        alien[q].xLength=0;
+        alien[q].yLength=0;
+      }
+    else { alienTouch = false;} 
+  }
+  // checks if an alien is being touched by a person
+  // if an alien is touched by a person it will shrink the size of the alien so that it appears to have disapeared
+  }
+  
+  void makeAgents(){
+    for(p=0; p<1; p++){
+      agent[p] = new mobs();
+      agent[p].x=width/2;
+      agent[p].y=height/2+300;
+      agent[p].xSpeed=5;
+      agent[p].ySpeed=5;
+      agent[p].xLength=50;
+      agent[p].yLength=50;
+      // declares starting position, size and speed of agents
+    }
+  }
+   
+   void agents(){
+     for(int l=0; l<10; l++){
+     for(int t=0; t<50; t++){
+       float shortDist = 101010010;
+       int closePerson = 0;
+       for (int j=0; j<30; j++){
+         if (dist (person[l].x1, person[l].y1, agent[p].x, agent[p].y)<shortDist){
+           shortDist=dist(person[l].x1, person[l].y1, agent[p].x, agent[p].y); closePerson =t;}
+     }
+     if (person[closePerson].x1>agent[t].x){agent[t].xSpeed*=-1;}
+     if (person[closePerson].x1<agent[t].x){agent[t].xSpeed*=1;}
+     if (person[closePerson].y1>agent[t].y){agent[t].ySpeed*=-1;}
+     if (person[closePerson].y1<agent[t].y){agent[t].ySpeed*=1;}
+     
+     agent[t].x+=xSpeed;
+     agent[t].y+=ySpeed;
+   }
+     }
+   
+   }
+    
+  void show(){
+    
+    for(int g=0; g<51;g++){
+      fill(67,80,97); rect(alien[g].x, alien[g].y, alien[g].xLength, alien[g].yLength);}
+    for (int g=0; g<1; g++){
+      fill(0,0,0); rect(agent[g].x,agent[g].y,agent[g].xLength,agent[g].yLength); }
+  }
+}
+
+
+class player{
+  int x1, y1;
+  int speed;
+  int kx, ky;
+  
+  void naruto(){
+   
+  }
+  
+  void movement(int x,int y){
+    speed =5;
+    kx = speed; ky = speed;
+    kx*=x;
+    ky*=y;
+    
+    
+  }
+  void show(){
+    fill(0,0,0);
+    person[i].x1=person[i].x1+kx;
+    person[i].y1=person[i].y1+ky;
+
+    for(int p=0; p<10; p++){rect(person[p].x1,person[p].y1,30,30);} 
+    m.checkAlien(x1,y1);
+  }
+}
+
+class screen{
+  String score;
+  
+  void zones(){
+    // safeZone
+    
+    
+    
+  }
+  void score(int a){
+    score = str(a);
+    print(a, score);
+  }
+  
+  void show(){
+    fill(26,29,38); rect(0,0,width,300);
+    fill(232,167,167); rect(500,400,1250,1004);//trackZone
+    fill(232,100,100); rect(700,600,850,604); //killZone
+   /* for (int t=0; t<i; t++){
+      rect(20+i*100,20,80,260);}*/
+  }
+}
